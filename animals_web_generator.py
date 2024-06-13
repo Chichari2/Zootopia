@@ -7,15 +7,26 @@ def load_data(file_path):
     return json.load(handle)
 
 
+with open("animals_template.html", "r") as fileobj:
+  data = fileobj.readlines()
+  #print(data[-4])
+
 animals_data = load_data('animals_data.json')
 
+output = ""
 for animal in animals_data:
-  print(f"Name: {animal["name"]}")
-  print(f"Diet: {animal["characteristics"]["diet"]}")
+  output += f"Name: {animal["name"]}\n"
+  output += f"Diet: {animal["characteristics"]["diet"]}\n"
   str_locations = ','.join(animal["locations"])
-  print(f"Location: {str_locations}")
+  output += f"Location: {str_locations}\n"
   try:
-    print(f"Type: {animal["characteristics"]["type"]}")
+    output += f"Type: {animal["characteristics"]["type"]}\n"
   except:
     KeyError
-  print("")
+  output += "\n"
+
+new_data = data[-4].replace("__REPLACE_ANIMALS_INFO__", output)
+data[-4] = new_data
+
+with open("animals.html", "w") as fileobj:
+  fileobj.writelines(data)
