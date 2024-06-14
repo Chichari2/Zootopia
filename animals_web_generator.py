@@ -19,17 +19,19 @@ def serialize_animal(animal_obj):
   output += '<li class="cards__item">'
   output += f'<div class="card__title">{animal_obj["name"]}</div>'
   output += '<p class="card__text">'
-  output += f"<strong>Diet</strong>: {animal_obj["characteristics"]["diet"]}<br/>\n"
+  output += '<ul>'
+  output += f"<li><strong>Diet</strong>: {animal_obj["characteristics"]["diet"]}"
   str_locations = ','.join(animal_obj["locations"])
-  output += f"<strong>Location</strong>: {str_locations}<br/>\n"
+  output += f"<li><strong>Location</strong>: {str_locations}"
   try:
-    output += f"<strong>Type</strong>: {animal_obj["characteristics"]["type"]}<br/>\n"
+    output += f"<li><strong>Type</strong>: {animal_obj["characteristics"]["type"]}"
   except:
     KeyError
   try:
-    output += f"<strong>Color</strong>: {animal_obj["characteristics"]["color"]}<br/>\n"
+    output += f"<li><strong>Color</strong>: {animal_obj["characteristics"]["color"]}"
   except:
     KeyError
+  output += '</ul>'
   output += '</p>'
   output += '</li>'
   return output
